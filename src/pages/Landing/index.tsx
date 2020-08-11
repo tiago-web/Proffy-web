@@ -17,7 +17,11 @@ const Landing: React.FC = () => (
 				<h2>Sua plataforma de estudos online.</h2>
 			</div>
 
-			<img src={landingImg} alt="Plataforma de estudos" className="hero-img" />
+			<img
+				src={landingImg}
+				alt="Plataforma de estudos"
+				className="hero-image"
+			/>
 
 			<div className="buttons-container">
 				<a href="" className="study">
@@ -25,8 +29,8 @@ const Landing: React.FC = () => (
 					Estudar
 				</a>
 				<a href="" className="give-classes">
-					<img src={giveClassesIcon} alt="Dar aula" />
-					Dar aula
+					<img src={giveClassesIcon} alt="Dar aulas" />
+					Dar aulas
 				</a>
 			</div>
 

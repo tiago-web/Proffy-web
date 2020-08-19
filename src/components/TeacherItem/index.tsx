@@ -3,40 +3,58 @@ import React from "react";
 import whatsappIcon from "../../assets/images/icons/whatsapp.svg";
 
 import "./styles.css";
+import api from "../../services/api";
 
-const TeacherItem: React.FC = () => (
-	<article className="teacher-item">
-		<header>
-			<img
-				src="https://avatars1.githubusercontent.com/u/54996200?s=460&u=71727831f077b47e9e102c1c0e78240fe9b7d67b&v=4"
-				alt="Tiago Soriano"
-			/>
-			<div>
-				<strong>Tiago Soriano</strong>
-				<span>Química</span>
-			</div>
-		</header>
+export interface Teacher {
+	id: number;
+	avatar: string;
+	bio: string;
+	cost: number;
+	name: string;
+	subject: string;
+	whatsapp: string;
+}
 
-		<p>
-			Entusiasta das melhores tecnologias de química avançada.css
-			<br />
-			<br />
-			Apaixonado por explodir coisas em laboratório e por mudar a vida das
-			pessoas através de experiências. Mais de 200.000 pessoas já passaram por
-			uma das minhas explosões.
-		</p>
+interface TeacherItemProps {
+	teacher: Teacher;
+}
 
-		<footer>
-			<p>
-				Preço/hora
-				<strong>R$ 80,00</strong>
-			</p>
-			<button type="button">
-				<img src={whatsappIcon} alt="Whatsapp" />
-				Entrar em contato
-			</button>
-		</footer>
-	</article>
-);
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+	const createNewConnection = () => {
+		api.post("connections", {
+			user_id: teacher.id,
+		});
+	};
+
+	return (
+		<article className="teacher-item">
+			<header>
+				<img src={teacher.avatar} alt={teacher.name} />
+				<div>
+					<strong>{teacher.name}</strong>
+					<span>{teacher.subject}</span>
+				</div>
+			</header>
+
+			<p>{teacher.bio}</p>
+
+			<footer>
+				<p>
+					Preço/hora
+					<strong>R$ {teacher.cost}</strong>
+				</p>
+				<a
+					target="_blank"
+					onClick={createNewConnection}
+					href={`https://wa.me/${teacher.whatsapp}`}
+					type="button"
+				>
+					<img src={whatsappIcon} alt="Whatsapp" />
+					Entrar em contato
+				</a>
+			</footer>
+		</article>
+	);
+};
 
 export default TeacherItem;
